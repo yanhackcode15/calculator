@@ -4,3 +4,7 @@ body {
     min-height: 100vh;
     box-sizing: border-box;
 }
+.display {
+    border: 1px grey solid;
+    width: 200px;
+}
