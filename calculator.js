@@ -2,21 +2,43 @@
 let total = 0;
 let nums = []; //will reset upon page refresh, everytime when a num key pressed a new num is added
 let operator = "";
+let equation = [];
+let equationString = "";
 document.addEventListener('DOMContentLoaded', ()=>{
   calculate()
 } )
 function updateDisplay(){
   let display = document.querySelector(".display");
-  display.textContent=`${total}`;
-  console.log('updating display')
+  equationString = equation.join(' ');
+  display.textContent= equationString;
+  console.log('updating display', equationString)
 }
 function onClickOperator(chosenOperator){
   setOperator(chosenOperator);
+  switch(operator) {
+    case "add":
+      equation.push('+');
+      break;
+    case "subtract":
+      equation.push('-');
+      break;
+    case "multiply":
+      equation.push('x');
+      break;
+    case "divide":
+      equation.push('/');
+      break;
+    default:
+      total = "undefined";
+      break;
+  }
+  ;
   updateDisplay();
 }
 
 function onClickEqualSign(){
   calculate();
+  equation.push("=")
   updateDisplay();
 }
 function setOperator(chosenOperator){
@@ -42,18 +64,22 @@ function calculate() {
       total = "undefined";
       break;
   }
-
+  equation.push(total)
   console.log('total', total);
 }
 function updateInputNums(num){
   nums.push(+num);
+  equation.push(+num);
+  updateDisplay();
   console.log(nums)
 }
 
 function reset(){
   nums = [];
   operator = "";
+  equation = [];
   total = 0; 
+  updateDisplay();
   console.log(nums, total)
 }
 const add = function(a, b) {
