@@ -39,6 +39,7 @@ function onClickOperator(chosenOperator){
 function onClickEqualSign(){
   calculate();
   equation.push("=")
+  equation.push(total);
   updateDisplay();
 }
 function setOperator(chosenOperator){
@@ -64,7 +65,7 @@ function calculate() {
       total = "undefined";
       break;
   }
-  equation.push(total)
+  
   console.log('total', total);
 }
 function updateInputNums(num){

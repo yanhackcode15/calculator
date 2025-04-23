@@ -4,7 +4,30 @@ body {
     min-height: 100vh;
     box-sizing: border-box;
 }
+.container {
+    padding: 20px; 
+}
 .display {
     border: 1px grey solid;
     width: 200px;
+    height: 30px;
+    padding: 5px;
+    line-height: 30px;
+    margin-bottom: 15px;
+}
+
+.clear {
+    margin-bottom: 15px;
+    width: 90px;
+    height: 30px;
+}
+
+.row {
+    margin-bottom: 10px;   
+}
+
+.number, .operator, .equal, .decimalPoint {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
 }
