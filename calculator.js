@@ -4,36 +4,44 @@ let nums = []; //will reset upon page refresh, everytime when a num key pressed 
 let operator = "";
 let equation = [];
 let equationString = "";
+
 document.addEventListener('DOMContentLoaded', ()=>{
   calculate()
 } )
+
+function onClickButton(buttonValue){
+  console.log('button value', buttonValue)
+  
+  if(buttonValue==='.'){
+    console.log('not handled')
+  }
+  else if(['+', '-', 'x', '/'].includes(buttonValue)) {
+    console.log('is operator')
+    equation.push(buttonValue);
+    setOperator(buttonValue)
+  }
+  else if(buttonValue==='='){
+    console.log('equal')
+    calculate();
+    equation.push("=")
+    equation.push(total);
+  }
+  else if(typeof(+buttonValue)==='number') {
+    nums.push(+buttonValue);
+    equation.push(+buttonValue);
+  }
+  
+  else {
+    console.log("shouldn't happen")
+  }
+  updateDisplay();
+}
+
 function updateDisplay(){
   let display = document.querySelector(".display");
   equationString = equation.join(' ');
   display.textContent= equationString;
   console.log('updating display', equationString)
-}
-function onClickOperator(chosenOperator){
-  setOperator(chosenOperator);
-  switch(operator) {
-    case "add":
-      equation.push('+');
-      break;
-    case "subtract":
-      equation.push('-');
-      break;
-    case "multiply":
-      equation.push('x');
-      break;
-    case "divide":
-      equation.push('/');
-      break;
-    default:
-      total = "undefined";
-      break;
-  }
-  ;
-  updateDisplay();
 }
 
 function onClickEqualSign(){
@@ -49,16 +57,16 @@ function calculate() {
   console.log('operator', operator)
   console.log('nums', nums);
   switch(operator) {
-    case "add":
+    case "+":
     total = nums[0]+nums[1];
       break;
-    case "subtract":
+    case "-":
       total = nums[0]-nums[1];
       break;
-    case "multiply":
+    case "x":
       total = nums[0]*nums[1];
       break;
-    case "divide":
+    case "/":
       total = nums[0]/nums[1];
       break;
     default:
@@ -104,21 +112,6 @@ const multiply = function() {
   return product;
 };
 
-
-// function numberFunction(value) {
-//   console.log("value", value);
-//   //first check whether the click is legit. i.e. if can't click on x twice in a roll, must start with a number ...etc
-//   if(verification()){
-//   //once it's legit, then push into an array
-
-//   }else {
-//     alert('try again!');
-//   }
-// }
-
-// function displayEquation(equation){
-//   console.log('equation', equation);
-// }
 
 function verification(){
   console.log('verification');

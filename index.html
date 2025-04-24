@@ -14,28 +14,28 @@
       <div class="display"></div>
       <button class="clear" onClick="reset()">Clear</button>
       <div class="row">
-        <button class="number" value="7" onClick="updateInputNums(this.value)">7</button>
-        <button class="number" value="8" onClick="updateInputNums(this.value)">8</button>
-        <button class="number" value="9" onClick="updateInputNums(this.value)">9</button>
-        <button class="operator" value="divide" onClick="onClickOperator(this.value)">/</button>
+        <button class="number" value="7" onClick="onClickButton(this.value)">7</button>
+        <button class="number" value="8" onClick="onClickButton(this.value)">8</button>
+        <button class="number" value="9" onClick="onClickButton(this.value)">9</button>
+        <button class="operator" value="/" onClick="onClickButton(this.value)">/</button>
       </div>
       <div class="row">
-        <button class="number" value="4" onClick="updateInputNums(this.value)">4</button>
-        <button class="number" value="5" onClick="updateInputNums(this.value)">5</button>
-        <button class="number" value="6" onClick="updateInputNums(this.value)">6</button>
-        <button class="operator" value="multiply" onClick="onClickOperator(this.value)">x</button>
+        <button class="number" value="4" onClick="onClickButton(this.value)">4</button>
+        <button class="number" value="5" onClick="onClickButton(this.value)">5</button>
+        <button class="number" value="6" onClick="onClickButton(this.value)">6</button>
+        <button class="operator" value="x" onClick="onClickButton(this.value)">x</button>
       </div>
       <div class="row">
-        <button class="number" value="1" onClick="updateInputNums(this.value)">1</button>
-        <button class="number" value="2" onClick="updateInputNums(this.value)">2</button>
-        <button class="number" value="3" onClick="updateInputNums(this.value)">3</button>
-        <button class="operator" value="add" onClick="onClickOperator(this.value)">+</button>
+        <button class="number" value="1" onClick="onClickButton(this.value)">1</button>
+        <button class="number" value="2" onClick="onClickButton(this.value)">2</button>
+        <button class="number" value="3" onClick="onClickButton(this.value)">3</button>
+        <button class="operator" value="+" onClick="onClickButton(this.value)">+</button>
       </div>
       <div class="row">
-        <button class="number" value="0" onClick="updateInputNums(this.value)">0</button>
-        <button class="decimalPoint" value="decimal" onClick="numberFunction(this.value)">.</button>
-        <button class="equal" value="equal" onClick="onClickEqualSign()">=</button>
-        <button class="operator" value="subtract" onClick="onClickOperator(this.value)">-</button>
+        <button class="number" value="0" onClick="onClickButton(this.value)">0</button>
+        <button class="decimalPoint" value="." onClick="onClickButton(this.value)">.</button>
+        <button class="equal" value="=" onClick="onClickButton(this.value)">=</button>
+        <button class="operator" value="-" onClick="onClickButton(this.value)">-</button>
       </div>
     </div>
   </body>
