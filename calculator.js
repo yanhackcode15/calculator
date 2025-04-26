@@ -4,6 +4,8 @@ let nums = []; //will reset upon page refresh, everytime when a num key pressed 
 let operator = "";
 let equation = [];
 let equationString = "";
+let num1 = "";
+let num2 = "";
 
 document.addEventListener('DOMContentLoaded', ()=>{
   calculate()
@@ -12,21 +14,26 @@ document.addEventListener('DOMContentLoaded', ()=>{
 function onClickButton(buttonValue){
   console.log('button value', buttonValue)
   
-  if(buttonValue==='.'){
-    console.log('not handled')
+  if(buttonValue==='.' && decimalIsAllowed()){
+    console.log('decimal button pressed')
+    nums.push(buttonValue);
+    equation.push(buttonValue);
   }
-  else if(['+', '-', 'x', '/'].includes(buttonValue)) {
+  else if(['+', '-', 'x', '/'].includes(buttonValue) && operatorIsAllowed()) {
     console.log('is operator')
     equation.push(buttonValue);
+    num1 = nums.join('');
+    nums = [];
     setOperator(buttonValue)
   }
   else if(buttonValue==='='){
     console.log('equal')
+    num2 = nums.join('');
     calculate();
     equation.push("=")
     equation.push(total);
   }
-  else if(typeof(+buttonValue)==='number') {
+  else if(['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'].includes(buttonValue)) {
     nums.push(+buttonValue);
     equation.push(+buttonValue);
   }
@@ -44,12 +51,7 @@ function updateDisplay(){
   console.log('updating display', equationString)
 }
 
-function onClickEqualSign(){
-  calculate();
-  equation.push("=")
-  equation.push(total);
-  updateDisplay();
-}
+
 function setOperator(chosenOperator){
   operator = chosenOperator;
 }
@@ -58,16 +60,16 @@ function calculate() {
   console.log('nums', nums);
   switch(operator) {
     case "+":
-    total = nums[0]+nums[1];
+    total = safeAdd(+num1, +num2);
       break;
     case "-":
-      total = nums[0]-nums[1];
+      total = safeSubtract(+num1, +num2);
       break;
     case "x":
-      total = nums[0]*nums[1];
+      total = safeMultiply(+num1, +num2);
       break;
     case "/":
-      total = nums[0]/nums[1];
+      total = safeDivide(+num1, +num2);
       break;
     default:
       total = "undefined";
@@ -76,12 +78,7 @@ function calculate() {
   
   console.log('total', total);
 }
-function updateInputNums(num){
-  nums.push(+num);
-  equation.push(+num);
-  updateDisplay();
-  console.log(nums)
-}
+
 
 function reset(){
   nums = [];
@@ -91,32 +88,61 @@ function reset(){
   updateDisplay();
   console.log(nums, total)
 }
-const add = function(a, b) {
-  return a + b; 
-	
-};
-
-const subtract = function(a, b) {
-	return a - b; 
-};
-
-const sum = function() {
-  let sum = 0; 
-	for (let arg of arguments[0]) sum += arg;
-  return sum;
-};
-
-const multiply = function() {
-  let product = 1; 
-	for (let arg of arguments[0]) product *= arg ;
-  return product;
-};
 
 
-function verification(){
-  console.log('verification');
-  return true;
+function safeAdd(a, b) {
+  let result = a + b;
+  // If either number has decimals, round to 10 decimal places to avoid weirdness
+  if (!Number.isInteger(a) || !Number.isInteger(b)) {
+    result = Math.round(result * 1e10) / 1e10;
+  }
+  return result;
 }
+
+function safeSubtract(a, b){
+  let result = a - b;
+  // If either number has decimals, round to 10 decimal places to avoid weirdness
+  if (!Number.isInteger(a) || !Number.isInteger(b)) {
+    result = Math.round(result * 1e10) / 1e10;
+  }
+  return result;
+}
+
+function safeMultiply(a, b){
+  let result = a * b;
+  // If either number has decimals, round to 10 decimal places to avoid weirdness
+  if (!Number.isInteger(a) || !Number.isInteger(b)) {
+    result = Math.round(result * 1e10) / 1e10;
+  }
+  return result;
+}
+function safeDivide(a, b){
+  let result = a/b;
+  // If either number has decimals, round to 10 decimal places to avoid weirdness
+  if (!Number.isInteger(result)) {
+    result = Math.round(result * 10) / 10;
+  }
+  return result;
+}
+
+
+function decimalIsAllowed(){ //only allowed if the nums array has no existing decimal
+  console.log('verifying decimal');
+  if(!nums.includes('.')) return true;
+  alert('Decimal misuse! Try again!');
+  return false;
+}
+
+function operatorIsAllowed(){
+  console.log('verification');
+  //an operator must be only allowed following a number, and only one operator allowed 
+  if(operator==='' &&nums.length>0) return true; //if it's the only operator and after a number is entered, do allow. otherwise, don't allow it.
+  alert("Input not allowed, try again!")
+  return false;
+}
+
+//handling numbers: instead of pushing upon number button click, pushing into array then only retrive the number 1 right before operator was pressed, retrive number 2 when equal sign is pressed.
+
 // Do not edit below this line
 // module.exports = {
 //   add,
